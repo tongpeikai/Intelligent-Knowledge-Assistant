@@ -8,13 +8,13 @@ from app import service
 
 def _new_session():
     sid = service.new_session_id()
-    return sid, [], f"已新建会话 `{sid}`"
+    return sid, [], f"已新建会话 `{sid}`", sid
 
 
 def _load_session(session_id: str):
     messages = service.history(session_id)
     chat = [{"role": m["role"], "content": m.get("content") or ""} for m in messages]
-    return chat, f"已加载 {len(chat)} 条消息"
+    return chat, f"已加载 {len(chat)} 条消息", session_id.strip()
 
 
 def _clear(session_id: str):
@@ -54,7 +54,9 @@ def build_demo() -> gr.Blocks:
     mode = get_mode().upper()
     with gr.Blocks(title="Intelligent Knowledge Assistant") as demo:
         gr.Markdown(f"# Intelligent Knowledge Assistant\n\n**当前模式：{mode}**（Mock 不会发起付费 API 请求）")
-        session_id = gr.Textbox(value=service.new_session_id(), label="会话 ID")
+        initial_session_id = service.new_session_id()
+        session_id = gr.Textbox(value=initial_session_id, label="会话 ID")
+        current_session_id = gr.State(initial_session_id)
         status = gr.Markdown("就绪")
         with gr.Row():
             new_btn = gr.Button("新建会话")
@@ -68,10 +70,10 @@ def build_demo() -> gr.Blocks:
             upload_btn = gr.Button("构建知识库")
         upload_status = gr.Markdown()
 
-        message.submit(_chat_stream, [message, chatbot, session_id], [chatbot, trace, message])
-        new_btn.click(_new_session, outputs=[session_id, chatbot, status])
-        load_btn.click(_load_session, inputs=session_id, outputs=[chatbot, status])
-        clear_btn.click(_clear, inputs=session_id, outputs=[chatbot, status])
+        message.submit(_chat_stream, [message, chatbot, current_session_id], [chatbot, trace, message])
+        new_btn.click(_new_session, outputs=[session_id, chatbot, status, current_session_id])
+        load_btn.click(_load_session, inputs=session_id, outputs=[chatbot, status, current_session_id])
+        clear_btn.click(_clear, inputs=current_session_id, outputs=[chatbot, status])
         upload_btn.click(_upload, inputs=upload, outputs=upload_status)
     return demo
 

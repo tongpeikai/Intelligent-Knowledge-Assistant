@@ -80,7 +80,7 @@ python -m pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-下载 `BAAI/bge-small-zh-v1.5` 到 `models/bge-small-zh-v1.5`。模型不随 Git 仓库发布；也可通过 `EMBEDDING_MODEL_PATH` 指向已有本地模型。详见 [安装指南](docs/INSTALLATION.md)。
+下载 `BAAI/bge-small-zh-v1.5` 到本地 `models/bge-small-zh-v1.5`，或通过 `EMBEDDING_MODEL_PATH` 指向已有模型。模型不随 Git 仓库发布；当前 Windows 工作区若发布目录旁存在原开发目录的 `models/bge-small-zh-v1.5`，配置会自动回退复用该模型，不需要复制模型或临时设置环境变量。新电脑请按 [安装指南](docs/INSTALLATION.md) 显式准备本地模型。
 
 ## 配置与运行
 

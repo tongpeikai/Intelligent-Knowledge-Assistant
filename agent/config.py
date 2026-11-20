@@ -28,9 +28,15 @@ MAX_UPLOAD_BYTES = int(os.environ.get("MAX_UPLOAD_BYTES", str(10 * 1024 * 1024))
 # ---------- 模型路径 ----------
 # 嵌入模型路径：优先使用环境变量，否则使用相对路径
 # 可通过环境变量 EMBEDDING_MODEL_PATH 覆盖
-EMBEDDING_MODEL_PATH = (
-    os.environ.get("EMBEDDING_MODEL_PATH")
-    or str(BASE_DIR / "models" / "bge-small-zh-v1.5")
+_configured_model_path = os.environ.get("EMBEDDING_MODEL_PATH")
+_local_model_path = BASE_DIR / "models" / "bge-small-zh-v1.5"
+_workspace_model_path = BASE_DIR.parent / "models" / "bge-small-zh-v1.5"
+# A release clone does not carry model weights. On this workstation, reuse the
+# sibling development workspace model without requiring a temporary env var.
+EMBEDDING_MODEL_PATH = str(
+    Path(_configured_model_path).expanduser()
+    if _configured_model_path
+    else (_local_model_path if _local_model_path.exists() else _workspace_model_path)
 )
 
 # ---------- LLM ----------

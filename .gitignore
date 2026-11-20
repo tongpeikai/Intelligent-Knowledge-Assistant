@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Local databases and journals
+cities.db
+sessions.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# 日志
+logs/
+
+# Chroma 持久化
+chroma_db/
+
+# 本地模型（体积大，一般不传）
+models/
+
+# IDE
+.idea/
+.vscode/
+
+
+
+project_analysis.md
+
+# Local-only learning and generated uploads
+local_only/
+data/uploads/

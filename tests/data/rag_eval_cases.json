@@ -1,0 +1,10 @@
+[
+  {"id":"zh_exact_fc","category":"中文/精确关键词","query":"Function Calling 的 tool_calls 和 JSON Schema","relevant_sources":["function_calling.md"]},
+  {"id":"zh_semantic_chunk","category":"中文/语义问题","query":"长文档应该怎样分段才能减少语义被截断？","relevant_sources":["rag_basics.md"]},
+  {"id":"zh_incremental","category":"中文/语义问题","query":"文件内容发生变化后如何只更新对应向量？","relevant_sources":["rag_basics.md"]},
+  {"id":"en_rag","category":"英文/语义问题","query":"How does retrieval augmented generation reduce hallucinations?","relevant_sources":["rag_basics.md"]},
+  {"id":"en_chroma","category":"英文/精确关键词","query":"ChromaDB PersistentClient collection metadata","relevant_sources":["chromadb_guide.md"]},
+  {"id":"cross_rag_chroma","category":"跨文档","query":"在 RAG 中如何用 ChromaDB 持久化向量并保存来源元数据？","relevant_sources":["rag_basics.md","chromadb_guide.md"]},
+  {"id":"zh_distance","category":"中文/精确概念","query":"余弦相似度、欧氏距离和内积有什么区别？","relevant_sources":["rag_basics.md"]},
+  {"id":"no_answer","category":"知识库无答案","query":"法国大革命期间巴士底狱的历史背景是什么？","relevant_sources":[]}
+]
